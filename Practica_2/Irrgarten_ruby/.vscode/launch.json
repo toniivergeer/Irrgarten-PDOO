@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "type": "rdbg",
+            "name": "Debug current file with rdbg",
+            "request": "launch",
+            "script": "${file}",
+            "args": [],
+            "askParameters": false, //ESTO VIENE PREDETERMINADO EN TRUE, CAMBIAR EN RUBY A FALSE.
+            "useTerminal": true //ESTO NI APARECE, EN RUBY ESCRIBIR ESTA LÍNEA PARA QUE SE ABRA EN TERMINAL, SINO SE ABRE EN CONSOLA DE DEBUG.
+        },
+        {
+            "type": "rdbg",
+            "name": "Attach with rdbg",
+            "request": "attach"
+        }
+    ]
+}
