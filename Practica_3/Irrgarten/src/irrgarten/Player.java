@@ -110,8 +110,15 @@ public class Player {
     }
     
     public Directions move(Directions direction,
-            ArrayList<Directions> validMoves){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+            ArrayList<Directions> validMoves){
+        
+        int size = validMoves.size();
+        boolean contained = validMoves.contains(direction);
+        if((size > 0) && (!contained)){
+               return validMoves.get(0);
+        }
+        
+        return direction;
     }
     
     /**

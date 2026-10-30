@@ -15,7 +15,6 @@ public class TextUI {
         return s.charAt(0);
     }
     
-
     public Directions nextMove() {
         System.out.print("Where? ");
         
