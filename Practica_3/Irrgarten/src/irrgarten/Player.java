@@ -109,6 +109,12 @@ public class Player {
         return(health <= 0);
     }
     
+    /**
+     * @brief Mueve al jugador en una dirección, consultando si está entre las válidas.
+     * @param direction Dirección en la que se quieren mover.
+     * @param validMoves Array de direcciones válidas en las que se puede mover.
+     * @return Dirección en la que se mueve.
+     */
     public Directions move(Directions direction,
             ArrayList<Directions> validMoves){
         
@@ -130,12 +136,37 @@ public class Player {
         return strength + sumWeapons();
     }
     
-    public boolean defend(float receivedAttack){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Defensa del jugador. 
+     * @param receivedAttack valor del ataque que recibe el jugador.
+     * @return True si el jugador pierde, false en caso contrario.
+     */
+    public boolean defend(float receivedAttack){ 
+        return manageHit(receivedAttack);
     }
     
-    public void receiveReward(){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Entrega las recompensas de armas, escudos y salud al jugador.
+     */
+    public void receiveReward(){ 
+        int wReward, sReward;
+        
+        wReward = Dice.weaponsReward();
+        sReward = Dice.shieldsReward();
+        
+        for(int i = 1; i <= wReward; ++i){
+            Weapon wnew = newWeapon();
+            receiveWeapon(wnew);
+        }
+        
+        for(int i = 1; i <= sReward; ++i){
+            Shield snew = newShield();
+            receiveShield(snew);
+        }
+        
+        int extraHealth = Dice.healthReward();
+        health += extraHealth;
+        
     }
     
     /**
@@ -155,12 +186,46 @@ public class Player {
     
     // ----------------- METODOS PRIVATE -----------------
     
-    private void receiveWeapon(Weapon w){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Recibe un arma y la añade a la colección si hay espacio.
+     * @post Se actualiza el arsenal, descartando las que cumplan la condición.
+     * @param w Arma a recibir.
+     */
+    private void receiveWeapon(Weapon w){ 
+        for(Weapon wi : weapons){
+            boolean discard = wi.discard();
+            
+            if(discard){
+                weapons.remove(wi);
+            }
+        }
+        
+        int size = weapons.size();
+        
+        if(size < MAX_WEAPONS){
+            weapons.add(w);
+        }
     }
     
-    private void receiveShield(Shield s){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Recibe un escudo y lo añade al arsenal si hay espacio.
+     * @post Se actualiza el arsenal, descartando los que cumplan la condición.
+     * @param s Escudo a recibir.
+     */
+    private void receiveShield(Shield s){ 
+        for(Weapon si : weapons){
+            boolean discard = si.discard();
+            
+            if(discard){
+                shields.remove(si);
+            }
+        }
+        
+        int size = shields.size();
+        
+        if(size < MAX_SHIELDS){
+            shields.add(s);
+        }
     }
     
     /**
@@ -232,8 +297,32 @@ public class Player {
         return intelligence + sumShields();
     }
     
-    private boolean manageHit(float receivedAttack){ //PRACTICA 3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Gestiona el golpe recibido al jugador, y si éste pierde o no.
+     * @param receivedAttack Valor de ataque recibido al jugador.
+     * @return True si el jugador pierde, false en caso contrario.
+     */
+    private boolean manageHit(float receivedAttack){ 
+        boolean lose;
+        float defense = defensiveEnergy();
+        
+        if(defense < receivedAttack){
+            gotWounded();
+            incConsecutiveHits();
+        }
+        else{
+            resetHits();
+        }
+        
+        if((consecutiveHits == HITS2LOSE) || (dead())){
+            resetHits();
+            lose = true;
+        }
+        else{
+            lose = false;
+        }
+        
+        return lose;
     }
     
     /**
