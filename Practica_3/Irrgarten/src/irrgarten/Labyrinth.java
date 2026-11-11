@@ -44,11 +44,23 @@ public class Labyrinth {
      * @post Establece la casilla de salida.
      */
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
+        this.nRows = nRows;
+        this.nCols = nCols;
+        
         monsters = new Monster[nRows][nCols];
         players = new Player[nRows][nCols];
         labyrinth = new char[nRows][nCols];
+        
+        for(int i = 0; i < nRows; i++){
+            for(int j = 0; j < nCols; j++){
+                labyrinth[i][j] = EMPTY_CHAR;
+            }
+        }
+        
         this.exitRow = exitRow;
         this.exitCol = exitCol;
+        
+        labyrinth[exitRow][exitCol] = EXIT_CHAR;
     }
     
     // ----------------- METODOS PUBLIC -----------------
