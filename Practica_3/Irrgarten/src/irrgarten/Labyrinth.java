@@ -5,6 +5,7 @@
 package irrgarten;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -53,8 +54,17 @@ public class Labyrinth {
     
     // ----------------- METODOS PUBLIC -----------------
     
-    public void spreadPlayers(ArrayList<Player> players){ //P3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Distribuye los jugadores por el laberinto.
+     * @param players Array de jugadores a distribuir.
+     */
+    public void spreadPlayers(Player[] players){ 
+        
+        for (Player p : Arrays.asList(players)) {
+            
+            int[] pos = randomEmptyPos();
+            putPlayer2D(-1,-1,pos[ROW],pos[COL],p);
+        }
     }
     
     /**
@@ -97,17 +107,81 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * @brief Coloca un jugador en el laberinto en la dirección indicada.
+     * @param direction Dirección que se quiere colocar al jugador.
+     * @param player Jugador que se quiere colocar.
+     * @return Monstruo situado en la posición de destino (null si no hay).
+     */
     public Monster putPlayer(Directions direction, Player player){ //P3
-        throw new UnsupportedOperationException();
+        int oldRow = player.getRow();
+        int oldCol = player.getCol();
+        
+        int[] newPos = dir2Pos(oldRow, oldCol, direction);
+        Monster monster = putPlayer2D(oldRow, oldCol, newPos[ROW], 
+                newPos[COL], player);
+        
+        return monster;
     }
     
+    /**
+     * @brief Añade un bloque de longitud "length", comenzando en la pos indicada,
+     * siguiendo una orientación.
+     * @param orientation Orientación que va a seguir el bloque.
+     * @param startRow Fila de la posición indicada.
+     * @param startCol Columna de la posición indicada.
+     * @param length Longitud del bloque.
+     */
     public void addBlock(Orientation orientation, int startRow,
-            int startCol, int length){ //P3
-        throw new UnsupportedOperationException();
+            int startCol, int length){
+        int incRow, incCol, row, col;
+        if(orientation == Orientation.VERTICAL){
+            incRow = 1;
+            incCol = 0;
+        }
+        else{
+            incRow = 0;
+            incCol = 1;
+        }
+        
+        row = startRow;
+        col = startCol;
+        
+        while( (posOK(row,col)) && (emptyPos(row,col)) && (length > 0)){
+           
+            labyrinth[row][col] = BLOCK_CHAR;
+            length -= 1;
+            row += incRow;
+            col += incCol;
+        }
     }
     
-    public ArrayList<Directions> validMoves(int row, int col){ //P3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Lista las direcciones válidas desde una posición determinada.
+     * @param row Fila de la posición a validar movimientos.
+     * @param col Columna de la posición a validar movimientos.
+     * @return Array de direcciones válidas.
+     */
+    public ArrayList<Directions> validMoves(int row, int col){
+        ArrayList<Directions> output = new ArrayList<Directions>();
+        
+        if(canStepOn(row+1, col)){
+            output.add(Directions.DOWN);
+        }
+        
+        if(canStepOn(row-1, col)){
+            output.add(Directions.UP);
+        }
+        
+        if(canStepOn(row, col+1)){
+            output.add(Directions.RIGHT);
+        }
+        
+        if(canStepOn(row, col-1)){
+            output.add(Directions.LEFT);
+        }
+        
+        return output;
     }
     
     // ----------------- METODOS PRIVATE -----------------
@@ -231,9 +305,55 @@ public class Labyrinth {
         return new int[]{row,col};
     }
    
+    /**
+     * @brief Coloca un jugador en el laberinto. Si hay un monstruo en la posición,
+     * se produce un combate.
+     * @param oldRow Fila de la pos anterior del jugador.
+     * @param oldCol Columna de la pos anterior del jugador.
+     * @param row Fila de la pos destino.
+     * @param col Columna de la pos destino.
+     * @param player Jugador a colocar.
+     * @post Se actualizan tanto la matriz de jugadores como la de caracteres.
+     * @return 
+     */
     private Monster putPlayer2D(int oldRow, int oldCol, int row,
-            int col, Player player){ //P3
-        throw new UnsupportedOperationException();
+            int col, Player player){ 
+        Monster output = null;
+        Player p;
+        boolean monsterPos;
+        char number;
+        
+        if(canStepOn(row,col)){
+            
+            if(posOK(oldRow,oldCol)){
+                
+                p = players[oldRow][oldCol]; 
+                //comprueba si el jugador que se está moviendo 
+                //es el mismo que estaba en la posición antigua.
+                
+                if(p == player){
+                    updateOldPos(oldRow, oldCol);
+                    players[oldRow][oldCol] = null;
+                }
+            }
+            
+            monsterPos = monsterPos(row,col);
+            
+            if(monsterPos){
+                labyrinth[row][col] = COMBAT_CHAR;
+                output = monsters[row][col];
+            }
+            else{
+                number = player.getNumber();
+                labyrinth[row][col] = number;
+            }
+            
+            players[row][col] = player;
+            
+            player.setPos(row,col);           
+        }
+        
+        return output;
        
     } 
 }
