@@ -5,7 +5,6 @@
 package irrgarten;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -58,9 +57,9 @@ public class Labyrinth {
      * @brief Distribuye los jugadores por el laberinto.
      * @param players Array de jugadores a distribuir.
      */
-    public void spreadPlayers(Player[] players){ 
+    public void spreadPlayers(ArrayList<Player> players){ 
         
-        for (Player p : Arrays.asList(players)) {
+        for (Player p : players) {
             
             int[] pos = randomEmptyPos();
             putPlayer2D(-1,-1,pos[ROW],pos[COL],p);
