@@ -143,8 +143,8 @@ public class Game {
      * por el mapa.
      */
     private void configureLabyrinth(){
-        labyrinth.addBlock(Orientation.HORIZONTAL, EXIT_ROW, EXIT_COL, ROWS);
-        labyrinth.addBlock(Orientation.VERTICAL, EXIT_ROW, EXIT_COL, ROWS);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 2, 2, 4);
+        labyrinth.addBlock(Orientation.VERTICAL, 4, 5, 3);
         
         for(int i = 0; i < N_MONSTRUOS; i++){
             int[] pos = labyrinth.randomEmptyPos();
@@ -166,6 +166,8 @@ public class Game {
         if(currentPlayerIndex >= players.size()){
             currentPlayerIndex = 0;
         }
+        
+        currentPlayer = players.get(currentPlayerIndex);
     }
     
     /**

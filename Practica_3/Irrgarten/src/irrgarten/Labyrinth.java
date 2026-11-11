@@ -115,6 +115,7 @@ public class Labyrinth {
         if (posOK(row, col) && labyrinth[row][col] == EMPTY_CHAR){
             labyrinth[row][col] = MONSTER_CHAR;
             monsters[row][col] = monster;
+            monster.setPos(row, col);
         }
     }
     
@@ -204,7 +205,8 @@ public class Labyrinth {
     * @return True si la posición solicitada es válida.
     */
     private boolean posOK(int row, int col){
-       return row <= nRows && row >= 0 && col <= nCols && col >= 0;
+       return row < nRows && row >= 0 
+               && col < nCols && col >= 0;
     }
    
     /**

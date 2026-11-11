@@ -50,7 +50,28 @@ public class TextUI {
     }
     
     public void showGame(GameState gameState) {
-        
-    }
+        System.out.println("\n========== IRRGARTEN ==========");
+
+        System.out.println("\nLaberinto:");
+        System.out.println(gameState.getLabyrinth());
+
+        System.out.println("\nJugadores:");
+        System.out.println(gameState.getPlayers());
+
+        System.out.println("\nMonstruos:");
+        System.out.println(gameState.getMonsters());
+
+        System.out.println("\nTurno del jugador: "
+                + gameState.getCurrentPlayer());
+
+        System.out.println("\nRegistro:");
+        System.out.println(gameState.getLog());
+
+        if (gameState.getWinner()) {
+            System.out.println("\n¡FIN DE LA PARTIDA! ¡Tenemos ganador!");
+        }
+
+        System.out.println("===============================");
+}
     
 }
