@@ -113,7 +113,7 @@ public class Labyrinth {
      * @param player Jugador que se quiere colocar.
      * @return Monstruo situado en la posición de destino (null si no hay).
      */
-    public Monster putPlayer(Directions direction, Player player){ //P3
+    public Monster putPlayer(Directions direction, Player player){ 
         int oldRow = player.getRow();
         int oldCol = player.getCol();
         

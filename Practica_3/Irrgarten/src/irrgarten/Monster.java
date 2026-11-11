@@ -61,8 +61,24 @@ public class Monster {
         return (Dice.intensity(strength));
     }
     
-    public boolean defend(float receivedAttack){ //PRACTICA3
-        throw new UnsupportedOperationException();
+    /**
+     * @brief Defensa del monstruo ante el ataque, y si muere por ello o no.
+     * @param receivedAttack Valor de ataque recibido al monstruo.
+     * @return True si el monstruo ha muerto. False en caso contrario.
+     */
+    public boolean defend(float receivedAttack){
+        boolean isDead = dead();
+        
+        if(!isDead){
+            float defensiveEnergy = Dice.intensity(intelligence);
+            
+            if(defensiveEnergy < receivedAttack){
+                gotWounded();
+                isDead = dead();
+            }
+        }
+        
+        return isDead;
     }
     
     /**
