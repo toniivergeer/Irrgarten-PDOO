@@ -32,6 +32,12 @@ public class Player {
     
     // ----------------- CONSTRUCTOR -----------------
     
+    /**
+     * @brief Constructor de jugador.
+     * @param number Número del jugador.
+     * @param intelligence Valor de inteligencia del jugador.
+     * @param strength Valor de fuerza del jugador.
+     */
     public Player(char number, float intelligence, float strength){
         
         this.name = "Player #" + number; //p.e: Player #2
