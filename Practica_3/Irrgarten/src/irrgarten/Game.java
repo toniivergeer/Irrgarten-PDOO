@@ -68,7 +68,7 @@ public class Game {
     }
     
     /**
-    * @brief Ejecuta un paso del juego para el jugador actual.
+    * @brief Ejecuta un paso del juego para el jugador actual (movimiento o resurrección).
     *
     * @param preferredDirection Dirección de movimiento solicitada por el jugador.
     * @return true si la partida ha terminado, false en caso contrario.
