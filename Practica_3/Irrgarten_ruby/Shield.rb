@@ -1,8 +1,10 @@
 #encoding: utf-8
 
 module Irrgarten
-
+  
   class Shield
+
+    # ----------------- CONSTRUCTOR -----------------
 
     def initialize(protection,uses)
       @protection = protection
@@ -14,14 +16,14 @@ module Irrgarten
     def protect
       salida = @protection
       
-      if(@uses > 0)then
+      if(@uses > 0) then
         @uses -= 1 #equivalente a @uses = @uses - 1
       else
         salida = 0
-      end
+      end #if-else
 
       return salida
-    end
+    end #protect
 
     def discard
       return Dice.discard_element(@uses)
