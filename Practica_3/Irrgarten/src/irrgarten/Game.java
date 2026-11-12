@@ -143,8 +143,18 @@ public class Game {
      * por el mapa.
      */
     private void configureLabyrinth(){
-        labyrinth.addBlock(Orientation.HORIZONTAL, 2, 2, 4);
-        labyrinth.addBlock(Orientation.VERTICAL, 4, 5, 3);
+        //inicializamos variables para no crear numeros magicos.
+        int startRowBlockH = 2;
+        int startColBlockH = 2;
+        int lengthBlockH = 4;
+        labyrinth.addBlock(Orientation.HORIZONTAL, startRowBlockH,
+                startColBlockH, lengthBlockH);
+        
+        int startRowBlockV = 4;
+        int startColBlockV = 5;
+        int lengthBlockV = 3;
+        labyrinth.addBlock(Orientation.VERTICAL, startRowBlockV,
+                startColBlockV, lengthBlockV);
         
         for(int i = 0; i < N_MONSTRUOS; i++){
             int[] pos = labyrinth.randomEmptyPos();
