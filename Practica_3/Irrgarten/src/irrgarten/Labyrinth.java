@@ -196,6 +196,24 @@ public class Labyrinth {
         return output;
     }
     
+    // ----------------- METODOS PROTECTED -----------------
+    
+    /**
+     * @brief Genera posiciones aleatorias hasta encontrar una con una casilla
+     * vacía (si no existe, se quedará en un bucle infinito).
+     * @return Coordenadas de la casilla vacía, en caso de que encuentre una. 
+     */
+    protected int[] randomEmptyPos(){
+        int row, col;
+        
+        do{
+            row = Dice.randomPos(nRows);
+            col = Dice.randomPos(nCols);
+        } while(!emptyPos(row,col));
+        
+        return new int[]{row,col};
+    }
+    
     // ----------------- METODOS PRIVATE -----------------
     
     /**
@@ -262,10 +280,7 @@ public class Labyrinth {
     } 
    
     /**
-    * @brief Actualiza la posición (revisada) una vez el jugador abandona la casilla: 
-    * si la posición es de combate, se actualiza a una de monstruo. En otro caso, 
-    * se actualiza a una posición vacía.
-    * 
+    * @brief Actualiza la posición anterior de un jugador en el laberinto.
     * @param row Fila de la casilla a actualizar.
     * @param col Columna de la casilla a actualizar.
     */
@@ -300,22 +315,6 @@ public class Labyrinth {
         }
         
         return pos;
-    }
-    
-    /**
-     * @brief Genera posiciones aleatorias hasta encontrar una con una casilla
-     * vacía (si no existe, se quedará en un bucle infinito).
-     * @return Coordenadas de la casilla vacía, en caso de que encuentre una. 
-     */
-    protected int[] randomEmptyPos(){
-        int row, col;
-        
-        do{
-            row = Dice.randomPos(nRows);
-            col = Dice.randomPos(nCols);
-        } while(!emptyPos(row,col));
-        
-        return new int[]{row,col};
     }
    
     /**
