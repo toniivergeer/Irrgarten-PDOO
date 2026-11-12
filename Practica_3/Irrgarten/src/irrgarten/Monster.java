@@ -85,6 +85,7 @@ public class Monster {
      * @brief Establece la posición del monstruo.
      * @param row Fila de la casilla establecida.
      * @param col Columna de la casilla establecida.
+     * @post El objeto tiene establecida una posición marcada por (row,col).
      */
     public void setPos(int row, int col){
         this.row = row;

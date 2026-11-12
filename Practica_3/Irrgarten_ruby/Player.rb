@@ -2,7 +2,7 @@
 
 module Irrgarten
 
-    #Representa a un jugador de Irrgarten
+    # Representa a un jugador de Irrgarten
     class Player
 
         MAX_WEAPONS = 2
@@ -31,6 +31,7 @@ module Irrgarten
         end #initialize
 
         # ----------------- METODOS PUBLIC -----------------
+        
         public
 
         # Revive al jugador, reestableciendo su salud y vaciando ambos arsenales.
@@ -69,6 +70,7 @@ module Irrgarten
         # Establece la posición del jugador.
         # @param row [Integer] Fila de la posición.
         # @param col [Inteer] Columna de la posición.
+        # @post El objeto tiene establecida una posición marcada por (row,col).
         def set_pos(row, col)
             @row = row
             @col = col
@@ -135,7 +137,7 @@ module Irrgarten
             - Health: #{@health}\n \
             - Intelligence: #{@intelligence}\n \
             - Strength: #{@strength}\n \
-            - (x,y): (#{get_row()} , #{get_col()})\n \
+            - (x,y): (#{get_row()},#{get_col()})\n \
             - Consecutive Hits: #{@consecutive_hits}\n"
         end #to_s
 

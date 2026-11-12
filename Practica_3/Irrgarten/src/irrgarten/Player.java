@@ -100,6 +100,7 @@ public class Player {
      * @brief Establece la posición de un jugador.
      * @param row Fila de la cassilla establecida.
      * @param col Columna de la casilla establecida.
+     * @post El objeto tiene establecida una posición marcada por (row,col).
      */
     public void setPos(int row, int col){
         this.row = row;
